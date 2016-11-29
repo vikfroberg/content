@@ -1,4 +1,4 @@
 import 'source-map-support/register'
-import { init } from './server'
+import { init } from '_/server'
 
 init()

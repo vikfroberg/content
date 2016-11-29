@@ -1,7 +1,9 @@
 import { Pool } from 'pg'
 
 const pool = new Pool({
-  database: 'content_dev',
+  database: process.env.NODE_ENV === 'test'
+    ? 'content_test'
+    : 'content_dev',
 })
 
 export const db_execute = (query, args, fn) => {
@@ -15,7 +17,7 @@ export const db_execute = (query, args, fn) => {
       options.query,
       options.args,
       (err, result) => {
-        options.fn(err, result.rows)
+        options.fn(err, JSON.parse(JSON.stringify(result.rows)))
         done()
       },
     )

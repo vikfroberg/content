@@ -1,7 +1,7 @@
 import Express from 'express'
 import BodyParser from 'body-parser'
-import createRouter from './createRouter'
-import routes from './routes'
+import createRouter from '_/app/createRouter'
+import routes from '_/app/routes'
 
 // TODO: Unit test...
 const json = (res) => (json, statusCode = 200) => {
@@ -9,7 +9,9 @@ const json = (res) => (json, statusCode = 200) => {
 }
 
 const middleware = (routes) => (req, res, err) => {
-  console.log(req.method, req.originalUrl)
+  if (process.env.NODE_ENV === 'development') {
+    console.log(req.method, req.originalUrl)
+  }
   const router = createRouter(routes)
   router({
     method: req.method,

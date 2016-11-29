@@ -1,5 +1,5 @@
 import { curry } from 'ramda'
-import { db_execute } from './db'
+import { db_execute } from '_/app/db'
 
 export const node_all = curry((cb) => {
   db_execute('SELECT * FROM nodes', cb)

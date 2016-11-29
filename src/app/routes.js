@@ -1,5 +1,5 @@
-import { post, get } from './route'
-import { nodes_index, nodes_create } from './nodes'
+import { post, get } from '_/app/route'
+import { nodes_index, nodes_create } from '_/app/nodes'
 
 export default [
   get('/nodes', nodes_index),

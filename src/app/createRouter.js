@@ -4,7 +4,7 @@ export default (routes) => (context) => {
     const methodMatches = route.method === context.method
     const pathMatches = route.pattern === context.path
     const wildMatches = route.pattern === '*'
-    if ((methodMatches && pathMatches) || wildMatches) {
+    if (methodMatches && (pathMatches || wildMatches)) {
       return route.handler(context, () => {})
     }
   }
