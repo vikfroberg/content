@@ -1,4 +1,4 @@
-import { curry } from 'ramda'
+import { curry } from '_/app/utils'
 import { db_execute } from '_/app/db'
 
 export const node_all = curry((cb) => {

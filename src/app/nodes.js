@@ -1,4 +1,4 @@
-import { curry } from 'ramda'
+import { curry } from '_/app/utils'
 import { node_create, node_all } from '_/app/node'
 
 export const nodes_index = curry(({ json }, done) => {
