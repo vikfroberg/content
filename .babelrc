@@ -2,12 +2,6 @@
   "presets": [
     "es2015",
     "stage-0"
-  ],
-  "plugins": [
-    ["babel-root-import", {
-      "rootPathPrefix": "_",
-      "rootPathSuffix": "src"
-    }]
   ]
 }
 

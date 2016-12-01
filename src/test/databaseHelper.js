@@ -1,6 +1,24 @@
-import { beforeEach } from '_/test/helper'
+import migrate from 'migrate'
+import fs from 'fs'
+import { before, beforeEach } from '_/test/helper'
 import { pipeA } from '_/app/async'
 import { db_execute } from '_/app/db'
+
+before(done => {
+  db_execute(`
+    DROP SCHEMA public CASCADE;
+    CREATE SCHEMA public;
+    GRANT ALL ON SCHEMA public TO public;`,
+    () => {
+      fs.unlinkSync('.migrate_test')
+      const set = migrate.load('.migrate_test', 'dist/migrations');
+      set.up((err) => {
+        if (err) throw err
+        done()
+      })
+    }
+  )
+})
 
 beforeEach(done => {
   db_execute(`

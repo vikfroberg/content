@@ -1,25 +1,28 @@
 import { Pool } from 'pg'
+import config from '_/app/config'
+import { fromNode } from '_/app/observable'
 
-const pool = new Pool({
-  database: process.env.NODE_ENV === 'test'
-    ? 'content_test'
-    : 'content_dev',
+export const stubs = {}
+
+stubs.pool = new Pool({
+  database: config('db'),
 })
 
-export const db_execute = (query, args, fn) => {
-  const options = {
-    query,
-    args: fn ? args : [],
-    fn: fn ? fn : args,
-  }
-  pool.connect((err, client, done) => {
+const executeFn = (query, args, fn) => {
+  stubs.pool.connect((err, client, done) => {
+    if (err) return fn(err)
     client.query(
-      options.query,
-      options.args,
-      (err, result) => {
-        options.fn(err, JSON.parse(JSON.stringify(result.rows)))
+      query,
+      args,
+      (err, res) => {
+        if (err) return fn(err)
+        fn(null, res.rows)
         done()
       },
     )
   })
 }
+
+export const execute = (query, args) =>
+  fromNode(fn => executeFn(query, args, fn))
+

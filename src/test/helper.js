@@ -1,31 +1,36 @@
+import sinon from 'sinon'
 import test from 'ava'
+import isObservable from 'is-observable'
+import Function from '@content/lib/function'
+import Observable from '@content/lib/observable'
 
 process.env.NODE_ENV = 'test'
 
-export const describe = (group, fn) => {
-  fn((name, fn) =>
-    fn.length <= 1
-    ? test(`${group} > ${name}`, fn)
-    : test.cb(`${group} > ${name}`, t => fn(t, t.end))
-  )
+const smarterAssert = (method, t) =>
+  Function.curry((a, xs) => {
+    if (isObservable(xs)) {
+      return Observable
+        .map(x => Function.invoke(method, t)(x, a), xs)
+    }
+    return Function.invoke(method)(xs, a)
+  })
+
+const it = (name, itFn) => {
+  test(name, t => {
+    itFn({
+      spy: Function.invoke('spy', sinon),
+      plan: Function.invoke('plan', t),
+      equal: smarterAssert('is', t),
+      deepEqual: smarterAssert('deepEqual', t),
+      throws: smarterAssert('throws', t),
+    })
+  })
 }
 
-export const it = (name, fn) => fn.length <= 1
-    ? test(name, fn)
-    : test.cb(name, t => fn(t, t.end))
+export const unit = unitFn => {
+  unitFn(it)
+}
 
-export const before = fn => fn.length < 1
-  ? test.before(fn)
-  : test.before.cb(t => fn(t.end))
-
-export const after = fn => fn.length < 1
-  ? test.after(fn)
-  : test.after.cb(t => fn(t.end))
-
-export const beforeEach = fn => fn.length < 1
-  ? test.beforeEach(fn)
-  : test.beforeEach.cb(t => fn(t.end))
-
-export const afterEach = fn => fn.length < 1
-  ? test.afterEach(fn)
-  : test.afterEach.cb(t => fn(t.end))
+export const integration = integrationFn => {
+  integrationFn(it)
+}
