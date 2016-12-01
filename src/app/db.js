@@ -1,28 +1,6 @@
-import { Pool } from 'pg'
-import config from '_/app/config'
-import { fromNode } from '_/app/observable'
+import Postgres from '@content/lib/postgres'
+import config from '@content/app/config'
 
-export const stubs = {}
-
-stubs.pool = new Pool({
-  database: config('db'),
+export default Postgres.pool({
+  database: config('database'),
 })
-
-const executeFn = (query, args, fn) => {
-  stubs.pool.connect((err, client, done) => {
-    if (err) return fn(err)
-    client.query(
-      query,
-      args,
-      (err, res) => {
-        if (err) return fn(err)
-        fn(null, res.rows)
-        done()
-      },
-    )
-  })
-}
-
-export const execute = (query, args) =>
-  fromNode(fn => executeFn(query, args, fn))
-

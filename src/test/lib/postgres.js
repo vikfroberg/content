@@ -21,7 +21,7 @@ unit(it => {
 
     const pg = new Postgres(pool)
 
-    return t.equal(rows, pg.execute(''))
+    return t.deepEqual(rows, pg.execute(''))
   })
 
   it('throws for connection error', t => {

@@ -1,26 +1,28 @@
-import { curry } from '_/app/utils'
-import { db_execute } from '_/app/db'
+import db from '@content/app/db'
+import Observable from '@content/lib/observable'
 
-export const node_all = curry(cb => {
-  db_execute(`
+class Node {}
+Node.all = () => {
+  const result = db.execute(`
     SELECT * FROM events
     WHERE type='node_create';
-    `,
-    (err, events) => {
-      const nodes = events.map(event => ({
-        id: event.id,
-      }))
-      cb(err, nodes)
-    }
-  )
-})
+  `)
 
-export const node_create = curry((node, cb) => {
-  db_execute(`
+  const reducer = es => es.map(e => ({
+    id: e.id,
+  }))
+
+  return result.map(reducer)
+}
+
+Node.create = node => {
+  const result = db.execute(`
     INSERT INTO events (type, payload)
     VALUES ('node_create', '${JSON.stringify(node)}')
     RETURNING id;
-    `,
-    (err, result) => cb(err, result[0])
-  )
-})
+  `)
+
+  return result.map(r => r[0])
+}
+
+export default Node

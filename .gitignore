@@ -3,3 +3,5 @@ coverage
 node_modules
 dist
 public
+src/lib/babel-root-import
+babel-root-import

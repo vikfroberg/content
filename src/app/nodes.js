@@ -1,16 +1,17 @@
-import { curry } from '_/app/utils'
-import { node_create, node_all } from '_/app/node'
+import node from '@content/app/node'
 
-export const nodes_index = curry(({ json }, done) => {
-  node_all((err, nodes) => {
-    json({ nodes })
-    done()
-  })
-})
+class Nodes {}
 
-export const nodes_create = curry(({ json }, done) => {
-  node_create({}, (err, node) => {
-    json({ node })
-    done()
+Nodes.index = ({ json }, done) => {
+  node.all().subscribe({
+    next: nodes => { json({ nodes }) },
   })
-})
+}
+
+Nodes.create = ({ json }) => {
+  node.create({}).subscribe({
+    next: node => { json({ node }) },
+  })
+}
+
+export default Nodes

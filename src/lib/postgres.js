@@ -19,7 +19,7 @@ class Postgres {
           args,
           (err, res) => {
             if (err) return fn(err)
-            fn(null, res.rows)
+            fn(null, JSON.parse(JSON.stringify(res.rows)))
             done()
           },
         )

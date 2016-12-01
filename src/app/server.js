@@ -1,9 +1,8 @@
 import Express from 'express'
 import BodyParser from 'body-parser'
-import createRouter from '_/app/createRouter'
-import routes from '_/app/routes'
+import createRouter from '@content/app/createRouter'
+import routes from '@content/app/routes'
 
-// TODO: Unit test...
 const json = (res) => (json, statusCode = 200) => {
   res.status(statusCode).json(json)
 }

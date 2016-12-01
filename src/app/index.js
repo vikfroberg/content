@@ -1,4 +1,4 @@
 import 'source-map-support/register'
-import { init } from '_/server'
+import server from '@content/app/server'
 
-init()
+server.init()

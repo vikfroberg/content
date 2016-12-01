@@ -1,12 +1,12 @@
-import { prop } from 'ramda'
+import Map from '@content/lib/map'
 
 export default key => {
   switch (process.env.NODE_ENV) {
     case 'production':
-      return prop(key, { db: 'content' })
+      return Map.prop(key, { database: 'content' })
     case 'test':
-      return prop(key, { db: 'content_test' })
+      return Map.prop(key, { database: 'content_test' })
     default:
-      return prop(key, { db: 'content_dev' })
+      return Map.prop(key, { database: 'content_dev' })
   }
 }

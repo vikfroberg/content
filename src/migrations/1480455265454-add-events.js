@@ -1,17 +1,27 @@
-import { db_execute } from '_/app/db'
+import db from '@content/app/db'
 
-export const up = done => {
-  db_execute(`
+export const up = complete => {
+  const result = db.execute(`
     create table events (
       id serial primary key not null,
       type varchar(255) not null,
       payload json not null
     );
-  `, done)
+  `)
+
+  if (complete) {
+    result.subscribe({ complete })
+  }
+  return result
 }
 
-export const down = done => {
-  db_execute(`
+export const down = complete => {
+  const result = db.execute(`
     drop table events;
-  `, done)
+  `)
+
+  if (complete) {
+    result.subscribe({ complete })
+  }
+  return result
 }
