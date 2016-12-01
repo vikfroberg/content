@@ -34,8 +34,5 @@
     "upgrade": "migrate -c dist up",
     "downgrade": "migrate -c dist down",
     "test": "ava dist/test/**/* -s"
-  },
-  "ava": {
-    "babel": "inherit"
   }
 }

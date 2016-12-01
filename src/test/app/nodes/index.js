@@ -1,5 +1,5 @@
-import test from 'ava'
-test(t => t.pass())
+// import test from 'ava'
+// test(t => t.pass())
 // import sinon from 'sinon'
 // import databaseHelper from '_/test/databaseHelper'
 // import { it } from '_/test/helper'

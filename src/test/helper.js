@@ -2,22 +2,22 @@ import fs from 'fs'
 import sinon from 'sinon'
 import test from 'ava'
 import isObservable from 'is-observable'
-import Function from '@content/lib/function'
+import Func from '@content/lib/function'
 import Observable from '@content/lib/observable'
 import db from '@content/app/db'
 import appServer from '@content/app/server'
 
 process.env.NODE_ENV = 'test'
 
-const betterAssert = (method, t) =>
-  Function.curry((a, xs) => {
-    const assert = Function.invoker(2, method)
-    if (isObservable(xs)) {
-      return Observable
-        .map(x => assert(x, a, t), xs)
-    }
-    return assert(xs, a, t)
-  })
+const smartAssert = (method, t) => (a, xs) => {
+  console.log({ a, xs })
+  const assert = Func.invoker(2, method)
+  if (isObservable(xs)) {
+    return Observable
+      .map(x => assert(x, a, t), xs)
+  }
+  return assert(xs, a, t)
+}
 
 const it = (name, itFn) => {
   test(name, t => {
@@ -25,8 +25,9 @@ const it = (name, itFn) => {
       spy: sinon.spy,
       calledOnce: sinon.assert.calledOnce,
       plan: n => t.plan(n),
-      equal: betterAssert('is', t),
-      deepEqual: betterAssert('deepEqual', t),
+      equal: smartAssert('is', t),
+      lol: smartAssert('deepEqual', t),
+      deepEqual: smartAssert('deepEqual', t),
       throws: (a, b) => t.throws(b, a),
     })
   })
@@ -48,7 +49,7 @@ export const server = serverFn => {
 }
 
 export const database = databaseFn => {
-  test.before(t => {
+  test.beforeEach(t => {
     const dropTables$ = db.execute(`
       DROP SCHEMA public CASCADE;
       CREATE SCHEMA public;
@@ -66,25 +67,6 @@ export const database = databaseFn => {
 
     return Observable.concat(dropTables$, ...migrations$)
   })
-
-  // beforeEach(done => {
-  //   db_execute(`
-  //     SELECT table_name
-  //     FROM information_schema.tables
-  //     WHERE table_schema = 'public'
-  //     AND table_type = 'BASE TABLE'
-  //   `, (err, tables) => {
-  //     const tableNames = tables.map(t => t.table_name)
-  //     const truncateTables = tableNames.map(t => fn =>
-  //       db_execute(
-  //         `TRUNCATE TABLE ${t} RESTART IDENTITY`,
-  //         fn
-  //       )
-  //     )
-  //     pipeA(...truncateTables)(done)
-  //   })
-  // })
-
   databaseFn(it)
 }
 
