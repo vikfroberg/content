@@ -3,12 +3,12 @@ import BodyParser from 'body-parser'
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
 
-import rootEpic from '@content/app/epics'
-import * as actions from '@content/app/actions'
+import routerEpic from '@content/app/epics/router'
 import { log } from '@content/lib/func'
+import * as actions from '@content/app/actions'
 
 const middleware = () => (req, res, err) => {
-  const epicMiddleware = createEpicMiddleware(rootEpic)
+  const epicMiddleware = createEpicMiddleware(routerEpic)
   const store = createStore(
     state => state,
     applyMiddleware(
