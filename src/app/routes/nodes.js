@@ -1,6 +1,7 @@
-import node from '@content/app/models/node'
-import { post, get } from '@content/app/route'
+import { post, get } from '@content/lib/router'
 import { map } from '@content/lib/func'
+
+import node from '@content/app/models/node'
 import { json } from '@content/app/actions'
 
 export const index = get('/nodes', () =>
