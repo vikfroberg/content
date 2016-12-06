@@ -1,5 +1,5 @@
 import Postgres from '@content/lib/postgres'
-import { integration, unit } from '@content/test/helper'
+import { integration, unit } from '@content/test/helpers'
 
 integration(it => {
   it('works', t => {

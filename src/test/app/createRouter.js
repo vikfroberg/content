@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import { unit } from '@content/test/helper'
+import { unit } from '@content/test/helpers'
 import { get } from '@content/app/route'
 import createRouter from '@content/app/createRouter'
 

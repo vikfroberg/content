@@ -1,35 +1,44 @@
 import Express from 'express'
 import BodyParser from 'body-parser'
-import createRouter from '@content/app/createRouter'
-import routes from '@content/app/routes'
+import { createStore, applyMiddleware } from 'redux'
+import { createEpicMiddleware } from 'redux-observable'
 
-const json = (res) => (json, statusCode = 200) => {
-  res.status(statusCode).json(json)
+import rootEpic from '@content/app/epics'
+import * as actions from '@content/app/actions'
+import { log } from '@content/lib/func'
+
+const middleware = () => (req, res, err) => {
+  const epicMiddleware = createEpicMiddleware(rootEpic)
+  const store = createStore(
+    state => state,
+    applyMiddleware(
+      epicMiddleware,
+      store => next => action => {
+        if (action.type === actions.log.toString()) {
+          log(action.payload)
+        }
+        else if (action.type === actions.json.toString()) {
+          res
+            .status(action.payload.statusCode)
+            .json(action.payload.response)
+        }
+        else if (action.type === actions.redirect.toString()) {
+          res.redirect(action.payload)
+        }
+        return next(action)
+      }
+    )
+  )
+  store.dispatch(actions.req({ req, res, err }))
 }
 
-const middleware = (routes) => (req, res, err) => {
-  if (process.env.NODE_ENV === 'development') {
-    console.log(req.method, req.originalUrl)
-  }
-  const router = createRouter(routes)
-  router({
-    method: req.method,
-    path: req.originalUrl,
-    json: json(res),
-  })
-}
-
-const bootstrap = ({ routes }) => {
+const bootstrap = () => {
   const app = Express()
   app.use(Express.static('public'))
   app.use(BodyParser.urlencoded({ extended: true }))
   app.use(BodyParser.json())
-  app.use(middleware(routes))
+  app.use(middleware())
   return app.listen(8080)
 }
 
-exports.init = () => {
-  return bootstrap({
-    routes,
-  })
-}
+exports.init = () => bootstrap()

@@ -1,5 +1,5 @@
 import request from 'superagent'
-import { server } from '@content/test/helper'
+import { server } from '@content/test/helpers'
 import Observable from '@content/lib/observable'
 
 server(it => {

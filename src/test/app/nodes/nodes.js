@@ -1,5 +1,5 @@
-// import test from 'ava'
-// test(t => t.pass())
+import test from 'ava'
+test(t => t.pass())
 // import request from 'superagent'
 // import { it, before, after } from '_/test/helper'
 // import server from '_/app/server'

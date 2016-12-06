@@ -10,7 +10,6 @@ import appServer from '@content/app/server'
 process.env.NODE_ENV = 'test'
 
 const smartAssert = (method, t) => (a, xs) => {
-  console.log({ a, xs })
   const assert = Func.invoker(2, method)
   if (isObservable(xs)) {
     return Observable
@@ -26,7 +25,6 @@ const it = (name, itFn) => {
       calledOnce: sinon.assert.calledOnce,
       plan: n => t.plan(n),
       equal: smartAssert('is', t),
-      lol: smartAssert('deepEqual', t),
       deepEqual: smartAssert('deepEqual', t),
       throws: (a, b) => t.throws(b, a),
     })
@@ -56,7 +54,7 @@ export const database = databaseFn => {
       GRANT ALL ON SCHEMA public TO public;
     `)
 
-    const dir = `${__dirname}/../migrations`
+    const dir = `${__dirname}/../../migrations`
     const files = fs.readdirSync(dir)
     const migrationFiles = files.filter(name => name.endsWith('.js'))
     const migrations = []

@@ -1,28 +1,28 @@
 import db from '@content/app/db'
-import Observable from '@content/lib/observable'
+import { map } from '@content/lib/func'
 
-class Node {}
-Node.all = () => {
-  const result = db.execute(`
-    SELECT * FROM events
-    WHERE type='node_create';
-  `)
+class Node {
+  static all() {
+    const result = db.execute(`
+      SELECT * FROM events
+      WHERE type='node_create';
+    `)
 
-  const reducer = es => es.map(e => ({
-    id: e.id,
-  }))
+    const reducer = map(e => ({
+      id: e.id,
+    }))
 
-  return result.map(reducer)
-}
+    return map(reducer, result)
+  }
+  static create(node) {
+    const result = db.execute(`
+      INSERT INTO events (type, payload)
+      VALUES ('node_create', '${JSON.stringify(node)}')
+      RETURNING id;
+    `)
 
-Node.create = node => {
-  const result = db.execute(`
-    INSERT INTO events (type, payload)
-    VALUES ('node_create', '${JSON.stringify(node)}')
-    RETURNING id;
-  `)
-
-  return result.map(r => r[0])
+    return map(r => r[0], result)
+  }
 }
 
 export default Node

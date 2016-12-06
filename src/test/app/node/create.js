@@ -1,4 +1,4 @@
-import { database } from '@content/test/helper'
+import { database } from '@content/test/helpers'
 import Nodes from '@content/app/node'
 
 database(it => {

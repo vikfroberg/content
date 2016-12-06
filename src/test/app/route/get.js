@@ -1,4 +1,4 @@
-import { unit } from '@content/test/helper'
+import { unit } from '@content/test/helpers'
 import { get } from '@content/app/route'
 
 unit(it => {
