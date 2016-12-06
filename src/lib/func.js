@@ -30,8 +30,9 @@ export const map = curry((fn, xs) => isObservable(xs)
   : Ramda.map(fn, xs)
 )
 
-export const ofType = curry((t, xs) =>
-  xs.filter(a => a.type === t.toString())
+export const ofType = curry((t, xs) => isObservable(xs)
+  ? xs.filter(a => a.type === t.toString())
+  : Ramda.filter(a => a.type === t.toString(), xs)
 )
 
 export const toObservable = (...args) =>
