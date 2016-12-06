@@ -1,4 +1,4 @@
 import 'source-map-support/register'
-import api from '@content/app/api'
+import app from '@content/app'
 
-api.init()
+app.init()
