@@ -1,5 +1,5 @@
 import { Pool } from 'pg'
-import Observable from '@content/lib/observable'
+import { Observable } from 'rxjs'
 
 class Postgres {
   constructor(pool) {

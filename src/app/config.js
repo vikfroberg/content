@@ -1,12 +1,12 @@
-import Map from '@content/lib/map'
+import { prop } from '@content/lib/func'
 
 export default key => {
   switch (process.env.NODE_ENV) {
     case 'production':
-      return Map.prop(key, { database: 'content' })
+      return prop(key, { database: 'content' })
     case 'test':
-      return Map.prop(key, { database: 'content_test' })
+      return prop(key, { database: 'content_test' })
     default:
-      return Map.prop(key, { database: 'content_dev' })
+      return prop(key, { database: 'content_dev' })
   }
 }

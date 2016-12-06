@@ -14,6 +14,8 @@ export const trace = xs => isObservable(xs)
   ? xs.do(log)
   : Ramda.tap(log)
 
+export const prop = Ramda.prop
+
 export const pipe = Ramda.pipe
 
 export const curry = Ramda.curry
