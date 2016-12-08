@@ -2,8 +2,8 @@ import { html } from 'common-tags'
 import { send } from '@vikfroberg/express-redux'
 import * as DOM from '@content/web/helpers/dom'
 
-export const renderToString = (component, meta = {}, statusCode = 200) =>
-  send(statusCode, html`
+export const renderToString = (component, meta = {}, statusCode) =>
+  send(html`
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -16,4 +16,4 @@ export const renderToString = (component, meta = {}, statusCode = 200) =>
       </div>
     </body>
     </html>
-  `)
+  `, statusCode)

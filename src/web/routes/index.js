@@ -12,6 +12,6 @@ export default [
       render(FaqNew({ template: res.body }))
     ),
   ])),
-  get('*', ({ json }) => toObservable(json(404, {}))),
+  get('*', ({ json }) => toObservable(json({}, 404))),
 ]
 

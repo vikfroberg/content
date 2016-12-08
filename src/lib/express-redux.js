@@ -1,34 +1,22 @@
 import { curry } from 'ramda'
+import { createAction } from 'redux-actions'
 
-export const json = curry((statusCode, response) => ({
-  type: 'EXPRESS/JSON',
-  payload: {
+export const json = createAction(
+  'EXPRESS/JSON',
+  (response, statusCode = 200) => ({
     statusCode,
     response,
-  },
-}))
-json.toString = () => 'EXPRESS/JSON'
-
-export const send = curry((statusCode, response) => ({
-  type: 'EXPRESS/SEND',
-  payload: {
+  })
+)
+export const send = createAction(
+  'EXPRESS/SEND',
+  (response, statusCode = 200) => ({
     statusCode,
     response,
-  },
-}))
-send.toString = () => 'EXPRESS/SEND'
-
-export const request = payload => ({
-  type: 'EXPRESS/REQUEST',
-  payload,
-})
-request.toString = () => 'EXPRESS/REQUEST'
-
-export const redirect = url => ({
-  type: 'EXPRESS/REDIRECT',
-  payload: url,
-})
-redirect.toString = () => 'EXPRESS/REDIRECT'
+  })
+)
+export const request = createAction('EXPRESS/REQUEST')
+export const redirect = createAction('EXPRESS/REDIRECT')
 
 export const createExpressMiddleware = (req, res) =>
   store => {
