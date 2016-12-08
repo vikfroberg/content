@@ -1,27 +1,27 @@
+import 'source-map-support/register'
 import Express from 'express'
 import BodyParser from 'body-parser'
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
+import { createExpressMiddleware } from '@content/lib/express-redux'
 
-import { req as reqAction, createExpressMiddleware } from '@content/lib/express-redux'
-import routerEpic from '@content/api/epics/router'
+import { createRouterEpic } from '@content/api/epics/router'
+import routes from '@content/api/routes'
 
 const middleware = () => (req, res, err) => {
+  const rootEpic = createRouterEpic(routes)
   const store = createStore(
     state => state,
     applyMiddleware(
-      createEpicMiddleware(routerEpic),
+      createEpicMiddleware(rootEpic),
       createExpressMiddleware(req, res)
     )
   )
-  store.dispatch(reqAction({ req, res, err }))
 }
 
-export default () => {
-  const app = Express()
-  app.use(Express.static('public'))
-  app.use(BodyParser.urlencoded({ extended: true }))
-  app.use(BodyParser.json())
-  app.use(middleware())
-  return app.listen(5000)
-}
+const app = Express()
+app.use(Express.static('public'))
+app.use(BodyParser.urlencoded({ extended: true }))
+app.use(BodyParser.json())
+app.use(middleware())
+export default app.listen(5000)
