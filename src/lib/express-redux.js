@@ -9,6 +9,15 @@ export const json = curry((statusCode, response) => ({
 }))
 json.toString = () => 'EXPRESS/JSON'
 
+export const send = curry((statusCode, response) => ({
+  type: 'EXPRESS/SEND',
+  payload: {
+    statusCode,
+    response,
+  },
+}))
+send.toString = () => 'EXPRESS/SEND'
+
 export const request = payload => ({
   type: 'EXPRESS/REQUEST',
   payload,
@@ -31,6 +40,11 @@ export const createExpressMiddleware = (req, res) =>
         res
           .status(action.payload.statusCode)
           .json(action.payload.response)
+      }
+      else if (action.type === send.toString()) {
+        res
+          .status(action.payload.statusCode)
+          .send(action.payload.response)
       }
       else if (action.type === redirect.toString()) {
         res.redirect(action.payload)

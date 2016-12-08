@@ -4,10 +4,11 @@ import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
 import { createExpressMiddleware } from '@vikfroberg/express-redux'
 
-import { createRouterEpic } from '@content/api/epics/router'
+import { createRouterEpic } from '@content/web/epics/router'
+import routes from '@content/web/routes'
 
 const middleware = () => (req, res, err) => {
-  const rootEpic = createRouterEpic([])
+  const rootEpic = createRouterEpic(routes)
   const store = createStore(
     state => state,
     applyMiddleware(

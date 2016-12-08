@@ -7,7 +7,9 @@
     "babel-preset-es2015": "^6.6.0",
     "babel-preset-stage-0": "^6.5.0",
     "body-parser": "^1.15.2",
+    "common-tags": "^1.4.0",
     "express": "^4.14.0",
+    "hyperscript-helpers": "^3.0.2",
     "invariant": "^2.2.2",
     "is-observable": "^0.2.0",
     "migrate": "^0.2.3",
@@ -15,12 +17,15 @@
     "path-to-regexp": "^1.7.0",
     "pg": "^6.1.0",
     "ramda": "^0.22.1",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-hyperscript": "^2.4.2",
     "redux": "^3.6.0",
     "redux-actions": "^1.1.0",
     "redux-observable": "^0.12.2",
     "rxjs": "^5.0.0-rc.4",
     "source-map-support": "^0.4.6",
-    "superagent": "^3.0.0"
+    "superagent": "^3.1.0"
   },
   "devDependencies": {
     "ava": "^0.17.0",

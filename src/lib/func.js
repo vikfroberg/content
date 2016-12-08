@@ -1,8 +1,27 @@
 import Ramda from 'ramda'
 import Rx from 'rxjs'
-import _isObservable from 'is-observable'
+import superagent from 'superagent'
+import isObservable from 'is-observable'
 
-export const isObservable = _isObservable
+export const flow = ([arg, ...args]) =>
+  Ramda.pipe(...args)(arg)
+
+export const fetch = (...args) =>
+  Rx.Observable.bindNodeCallback((url, options = {}, fn) => {
+    const finalOptions = {
+      method: 'GET',
+      headers: {},
+      ...options,
+    }
+    const request = superagent(finalOptions.method, url)
+    Object.keys(finalOptions.headers).forEach(key => {
+      request.set(key, finalOptions.headers[key])
+    })
+    if (finalOptions.body) {
+      request.send(finalOptions.body)
+    }
+    return request.end(fn)
+  })(args[0], args[1])
 
 export const log = a => {
   if (process.env.NODE_ENV === 'development') {

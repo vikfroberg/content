@@ -1,4 +1,5 @@
 export default {
+  id: 1,
   title: 'Frequently Asked Questions',
   cards: [
     {
@@ -15,7 +16,7 @@ export default {
     },
     {
       title: "Have another question?",
-      body: "[Message us on telegram](https://telegram.me/Carvanro_Help)\n\nOr send us an email info@carvanro.com and we'll get back to you as soon as possible.'
+      body: "[Message us on telegram](https://telegram.me/Carvanro_Help)\n\nOr send us an email info@carvanro.com and we'll get back to you as soon as possible."
     }
   ]
 }
