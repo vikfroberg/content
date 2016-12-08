@@ -5,9 +5,9 @@ import {
   map,
   flatMap,
   toObservable,
-} from '@content/lib/func'
-import { createRouter } from '@content/lib/router'
-import { request } from '@content/lib/express-redux'
+} from '@vikfroberg/func'
+import { createRouter } from '@vikfroberg/router'
+import { request } from '@vikfroberg/express-redux'
 
 export const createRouterEpic = routes =>
   pipe(

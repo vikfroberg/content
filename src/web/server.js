@@ -2,15 +2,16 @@ import Express from 'express'
 import BodyParser from 'body-parser'
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
-import { createExpressMiddleware } from '@content/lib/express-redux'
+import { createExpressMiddleware } from '@vikfroberg/express-redux'
 
-import routerEpic from '@content/api/epics/router'
+import { createRouterEpic } from '@content/api/epics/router'
 
 const middleware = () => (req, res, err) => {
+  const rootEpic = createRouterEpic([])
   const store = createStore(
     state => state,
     applyMiddleware(
-      createEpicMiddleware(routerEpic),
+      createEpicMiddleware(rootEpic),
       createExpressMiddleware(req, res)
     )
   )

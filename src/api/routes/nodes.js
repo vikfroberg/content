@@ -1,5 +1,5 @@
-import { post, get } from '@content/lib/router'
-import { map } from '@content/lib/func'
+import { post, get } from '@vikfroberg/router'
+import { map } from '@vikfroberg/func'
 
 import node from '@content/api/models/node'
 import { json } from '@content/api/actions'

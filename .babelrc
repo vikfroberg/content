@@ -4,10 +4,19 @@
     "stage-0"
   ],
   "plugins": [
-    ["./babel-root-import", {
+    ["./babel-root-import", [{
       "rootPathPrefix": "@content",
       "rootPathSuffix": "./src"
-    }]
+    }, {
+      "rootPathPrefix": "@vikfroberg/express-redux",
+      "rootPathSuffix": "./src/lib/express-redux"
+    }, {
+      "rootPathPrefix": "@vikfroberg/func",
+      "rootPathSuffix": "./src/lib/func"
+    }, {
+      "rootPathPrefix": "@vikfroberg/router",
+      "rootPathSuffix": "./src/lib/router"
+    }]]
   ]
 }
 

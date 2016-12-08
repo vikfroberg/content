@@ -1,5 +1,5 @@
 import db from '@content/api/db'
-import { map } from '@content/lib/func'
+import { map } from '@vikfroberg/func'
 
 class Node {
   static all() {

@@ -1,4 +1,4 @@
-import { prop } from '@content/lib/func'
+import { prop } from '@vikfroberg/func'
 
 export default key => {
   switch (process.env.NODE_ENV) {

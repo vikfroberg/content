@@ -1,6 +1,6 @@
-import { get } from '@content/lib/router'
-import { toObservable } from '@content/lib/func'
-import { json } from '@content/lib/express-redux'
+import { get } from '@vikfroberg/router'
+import { toObservable } from '@vikfroberg/func'
+import { json } from '@vikfroberg/express-redux'
 import faqJSON from '@content/api/fixtures/templates/faq'
 
 export default [
