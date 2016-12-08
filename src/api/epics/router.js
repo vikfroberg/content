@@ -1,13 +1,6 @@
-import {
-  pipe,
-  trace,
-  ofType,
-  map,
-  flatMap,
-  toObservable,
-} from '@vikfroberg/func'
+import { pipe, ofType, map, flatMap } from '@vikfroberg/func'
 import { createRouter } from '@vikfroberg/router'
-import { request } from '@vikfroberg/express-redux'
+import { request, json } from '@vikfroberg/express-redux'
 
 export const createRouterEpic = routes =>
   pipe(
@@ -15,6 +8,7 @@ export const createRouterEpic = routes =>
     map(action => ({
       method: action.payload.req.method,
       path: action.payload.req.originalUrl,
+      json: json,
     })),
     flatMap(createRouter(routes))
   )
