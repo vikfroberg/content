@@ -1,5 +1,5 @@
 import { database } from '@content/test/helpers'
-import Nodes from '@content/app/node'
+import Nodes from '@content/api/node'
 
 database(it => {
   it('creates event', t => {

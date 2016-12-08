@@ -7,12 +7,12 @@ import {
   toObservable,
 } from '@content/lib/func'
 import { createRouter } from '@content/lib/router'
-import routes from '@content/app/routes'
-import * as actions from '@content/app/actions'
+import routes from '@content/api/routes'
+import { req } from '@content/lib/express-redux'
 
 const createRouterEpic = routes =>
   pipe(
-    ofType(actions.req),
+    ofType(req),
     map(action => ({
       method: action.payload.req.method,
       path: action.payload.req.originalUrl,

@@ -1,4 +1,4 @@
-import db from '@content/app/db'
+import db from '@content/api/db'
 
 export const up = complete => {
   const result = db.execute(`

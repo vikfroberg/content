@@ -4,8 +4,8 @@ import test from 'ava'
 import isObservable from 'is-observable'
 import Func from '@content/lib/function'
 import Observable from '@content/lib/observable'
-import db from '@content/app/db'
-import appServer from '@content/app/server'
+import db from '@content/api/db'
+import appServer from '@content/api/server'
 
 process.env.NODE_ENV = 'test'
 

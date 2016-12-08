@@ -1,4 +1,4 @@
-import db from '@content/app/db'
+import db from '@content/api/db'
 import { map } from '@content/lib/func'
 
 class Node {

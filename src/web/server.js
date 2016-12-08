@@ -3,9 +3,9 @@ import BodyParser from 'body-parser'
 import { createStore, applyMiddleware } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
 
-import routerEpic from '@content/app/epics/router'
 import { log } from '@content/lib/func'
-import * as actions from '@content/app/actions'
+import routerEpic from '@content/api/epics/router'
+import * as actions from '@content/api/actions'
 
 const middleware = () => (req, res, err) => {
   const epicMiddleware = createEpicMiddleware(routerEpic)
@@ -32,13 +32,11 @@ const middleware = () => (req, res, err) => {
   store.dispatch(actions.req({ req, res, err }))
 }
 
-const bootstrap = () => {
-  const app = Express()
-  app.use(Express.static('public'))
-  app.use(BodyParser.urlencoded({ extended: true }))
-  app.use(BodyParser.json())
-  app.use(middleware())
-  return app.listen(8080)
-}
+const app = Express()
+app.use(Express.static('public'))
+app.use(BodyParser.urlencoded({ extended: true }))
+app.use(BodyParser.json())
+app.use(middleware())
+export default app.listen(3000)
 
-exports.init = () => bootstrap()
+

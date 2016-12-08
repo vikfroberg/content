@@ -1,4 +1,4 @@
-import Node from '@content/app/node'
+import Node from '@content/api/node'
 import Observable from '@content/lib/observable'
 import { database } from '@content/test/helpers'
 

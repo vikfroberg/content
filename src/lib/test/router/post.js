@@ -1,5 +1,5 @@
 import { unit } from '@content/test/helpers'
-import { post } from '@content/app/route'
+import { post } from '@content/api/route'
 
 unit(it => {
   it('retuns a route object', t => {
