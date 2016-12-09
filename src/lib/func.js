@@ -3,6 +3,8 @@ import Rx from 'rxjs'
 import superagent from 'superagent'
 import isObservable from 'is-observable'
 
+export const match = Ramda.match
+
 export const flow = ([arg, ...args]) =>
   Ramda.pipe(...args)(arg)
 

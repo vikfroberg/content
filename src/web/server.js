@@ -1,3 +1,4 @@
+import path from 'path'
 import Express from 'express'
 import BodyParser from 'body-parser'
 import { createStore, applyMiddleware } from 'redux'
@@ -19,7 +20,7 @@ const middleware = () => (req, res, err) => {
 }
 
 const app = Express()
-app.use(Express.static('public'))
+app.use('/assets', Express.static('src/web/public'))
 app.use(BodyParser.urlencoded({ extended: true }))
 app.use(BodyParser.json())
 app.use(middleware())

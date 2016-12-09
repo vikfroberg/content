@@ -8,6 +8,11 @@ export default {
       type: 'text',
     },
     {
+      name: 'Slug',
+      machine_name: 'slug',
+      type: 'text',
+    },
+    {
       name: 'Cards',
       machine_name: 'cards',
       type: 'collection',

@@ -1,0 +1,5 @@
+.constrained {
+  max-width: 600px;
+  margin: auto;
+  padding: 40px 30px;
+}
