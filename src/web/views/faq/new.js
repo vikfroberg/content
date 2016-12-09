@@ -27,7 +27,7 @@ const tagWithClassName = (tag, className) =>
 
 const Constrained = tagWithClassName(div, 'constrained')
 const PageTitle = tagWithClassName(h1)
-const Title = tagWithClassName(h1)
+const FieldCollectionTitle = tagWithClassName(h2)
 const Button = tagWithClassName(button, 'button')
 const Label = tagWithClassName(label, 'label')
 const Input = tagWithClassName(input, 'input')
@@ -40,9 +40,10 @@ const Padding3 = tagWithClassName(div, 'p3')
 const FieldCollection = ({ field }) =>
   Padding3([
     Margin2([
-      Title(field.name),
+      FieldCollectionTitle(field.name),
     ]),
     Fields({ fields: field.fields }),
+    div(`Add More ${field.name} +`),
   ])
 
 const FieldText = ({ field }) =>
@@ -85,7 +86,9 @@ const Fields = ({ fields, ...props }) =>
 
 export default ({ template }) => {
   return Constrained([
-    PageTitle(template.name),
+    Margin4([
+      PageTitle(template.name),
+    ]),
     form([
       Fields({ fields: template.fields }),
       Button({ type: 'submit' }, [
